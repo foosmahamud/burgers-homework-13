@@ -1,0 +1,49 @@
+<h1>burgers!</h1>
+
+<!-- show the burgers that havent been eaten yet -->
+<ul>
+  {{#each burger}}
+    {{#unless this.devoured}}
+    <form class="eat-burger-form">
+        <p>{{this.name}}</p>
+        <input class="burger-id" type="hidden" value={{this.id}}>
+        <button type="submit">Eat it!</button>
+    </form>
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h2>Burgers we ate</h2>
+<!-- show the burgers that have been eaten -->
+<ul>
+  {{#each burger}}
+    {{#if this.devoured}}
+    <p>{{this.name}}</p>
+    {{/if}}
+  {{/each}}
+</ul>
+
+<h2>Add a Burger</h2>
+<form class="create-form" action="/api/burgers" method="post">
+
+  <div class="form-group">
+    <label for="ca">Burger Name:</label>
+    <input type="text" id="ca" name="name">
+  </div>
+
+  <button type="submit">Add Burger</button>
+</form>
+
+<script>
+  $(".eat-burger-form").on("submit", function(event) {
+    event.preventDefault();
+    var burgerId = $(this).children(".burger-id").val();
+    console.log(burgerId)
+    $.ajax({
+      method:"PUT",
+      url:"/api/burgers/" + burgerId
+    }).then(function(data) {
+      location.reload();
+    })
+ })
+</script>
