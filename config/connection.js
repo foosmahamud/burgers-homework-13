@@ -8,7 +8,7 @@ if (process.env.JAWSDB_URL) {
     port: 3306,
     // Replace user and password with your MySQL login info
     user: "root",
-    password: "Hooyo@4730",
+    password: "",
     database: "burger_db",
   });
 }
